@@ -8,11 +8,11 @@ This repository contains a collection of scripts developed for the article "Comp
 
 The repository can be divided into three main sections:
 
-o **Dataset preparation** - scripts for data conversion and creation of BIDS-compatible event file
+o **Dataset preparation** - scripts for data conversion, anonymisation, and creation of BIDS-compatible event file
 
 o **E-Prime scripts** - E-Prime presentation scripts
 
-o **Data analysis** - scripts for preprocessing of multi-echo data, data quality assessment, and statistical modeling
+o **Data analysis** - scripts for preprocessing of multi-echo data, data quality assessment, and statistical modelling
 
 
 
@@ -21,10 +21,15 @@ o **Data analysis** - scripts for preprocessing of multi-echo data, data quality
 Below you will find descriptions of all scripts included in this repository:
 
 
-
 **Mafil\_dicom2preBIDS**
 
-The Mafil\_dicom2preBIDS\_public function converts DICOM files to NIFTI and organizes the converted data according to BIDS(-like) format. Tailored to MAFIL CEITEC MR data.
+The Mafil\_dicom2preBIDS\_public function converts DICOM files to NIFTI and organises the converted data according to BIDS(-like) format. Tailored to MAFIL CEITEC MR data.
+
+
+
+**recode_BIDS_to_full_anon_public**
+
+The script anonymises the BIDS dataset by using a look-up table to replace the original subject identifiers with new anonymous codes. It processes all files in the dataset, modifies their contents, removes sensitive metadata, and rewrites the subject identifiers within the data. It also renames the files and folders themselves so that they correspond to the new anonymous identifiers throughout. The result is a fully anonymised dataset.
 
 
 
@@ -42,13 +47,14 @@ The E-Prime\_VOB script implements the VOB task used during fMRI scanning. It de
 
 **EVENT\_VisMot**
 
-The EVENT\_VisMot script generates BIDS-compatible event files for the VisMot task. It reads raw log files, extracts relevant trial information (stimulus onset, duration, and trial type), and converts them into a structured .tsv format. The script handles both rest and active blocks, calculates block durations based on TR. The output files are ready for subsequent fMRI analysis and task modeling.
+The EVENT\_VisMot script generates BIDS-compatible event files for the VisMot task. It reads raw log files, extracts relevant trial information (stimulus onset, duration, and trial type), and converts them into a structured .tsv format. The script handles both rest and active blocks, calculates block durations based on TR. The output files are ready for subsequent fMRI analysis and task modelling.
 
 
 
 **EVENT\_VOB**
 
-The EVENT\_VOB script creates BIDS-compatible event files for the VOB task. It reads raw log files and extracts trial information (trial type, stimulus, onset, duration, response time, and correctness). Response correctness is automatically determined according to the task rules. The resulting .tsv files are prepared for later modeling of task events in fMRI analyses.
+The EVENT\_VOB script creates BIDS-compatible event files for the VOB task. It reads raw log files and extracts trial information (trial type, stimulus, onset, duration, response time, and correctness). Response correctness is automatically determined according to the task rules. The resulting .tsv files are prepared for later modelling of task events in fMRI analyses.
+
 
 
 
@@ -60,7 +66,7 @@ The DQ\_calc function computes multiple data quality metrics, including temporal
 
 **FD\_calc**
 
-The FD\_calc function computes Framewise Displacement (FD) as a measure of subject head motion during scanning. It takes a matrix of motion parameters (translations and rotations) and supports several calculation methods via the optional argument fd\_type. This function is part of the DQ\_prep pipeline.
+The FD\_calc function computes Framewise Displacement (FD) as a measure of subject head motion during scanning. It takes a matrix of motion parameters (translations and rotations) and supports several calculation methods via the optional argument fd_type. This function is part of the DQ\_prep pipeline.
 
 
 
@@ -72,7 +78,7 @@ The DQ\_prep script prepares functional data for quality assessment by ensuring 
 
 **FC\_corrmat\_calc**
 
-The FC\_corrmat\_calc function calculates the tSNR and additional signal quality metrics for each region of interest (ROI) in the gray matter, white matter, and cerebrospinal fluid. It supports automatic processing of multiple subjects and sessions. Subject-level results are stored in the FC\_CorrMatrix folder, and a group summary file FCmatrix\_AAL\_tse.mat is saved in the main study directory.
+The FC\_corrmat\_calc function calculates the tSNR and additional signal quality metrics for each region of interest (ROI) in the grey matter, white matter, and cerebrospinal fluid. It supports automatic processing of multiple subjects and sessions. Subject-level results are stored in the FC\_CorrMatrix folder, and a group summary file FCmatrix\_AAL\_tse.mat is saved in the main study directory.
 
 
 
@@ -84,17 +90,17 @@ The Process\_MultiEcho script handles core processing steps specific to multi-ec
 
 **Preprocess\_MultiEcho**
 
-The Preprocess\_MultiEcho script performs preprocessing of multi-echo fMRI data using SPM12. It automates core preprocessing steps — including coregistration, spatial normalization, and smoothing — ensuring a standardized workflow across all subjects and tasks. This script follows Process\_MultiEcho.
+The Preprocess\_MultiEcho script performs preprocessing of multi-echo fMRI data using SPM12. It automates core preprocessing steps — including coregistration, spatial normalisation, and smoothing — ensuring a standardised workflow across all subjects and tasks. This script follows Process\_MultiEcho.
 
 
 
 **Statistic\_VOB**
 
-The Statistic\_VOB script performs first-level statistical analysis for the VOB fMRI task using SPM12. It automatically loads preprocessed BOLD data and corresponding event files generated by EVENT\_VOB, defines task conditions, and includes 24 motion regressors. It builds and estimates a subject-level GLM, computes contrasts, and outputs statistical maps. The script supports batch processing of multiple subjects and sessions, ensuring consistent statistical modeling across the dataset and providing a basis for subsequent group-level analysis.
+The Statistic\_VOB script performs first-level statistical analysis for the VOB fMRI task using SPM12. It automatically loads preprocessed BOLD data and corresponding event files generated by EVENT\_VOB, defines task conditions, and includes 24 motion regressors. It builds and estimates a subject-level GLM, computes contrasts, and outputs statistical maps. The script supports batch processing of multiple subjects and sessions, ensuring consistent statistical modelling across the dataset and providing a basis for subsequent group-level analysis.
 
 
 
 **Statistic\_VisMot**
 
-The Statistic\_VisMot script performs first-subject statistical analysis for the VisMot fMRI task using SPM12. It automatically loads preprocessed BOLD data and corresponding event files generated by EVENT\_VisMot, defines task conditions, and includes 24 motion regressors. It builds and estimates a subject-level GLM, computes contrasts, and outputs statistical maps. The script supports batch processing of multiple subjects and sessions, ensuring consistent statistical modeling across the dataset and providing a basis for subsequent group-level analysis.
+The Statistic\_VisMot script performs first-subject statistical analysis for the VisMot fMRI task using SPM12. It automatically loads preprocessed BOLD data and corresponding event files generated by EVENT\_VisMot, defines task conditions, and includes 24 motion regressors. It builds and estimates a subject-level GLM, computes contrasts, and outputs statistical maps. The script supports batch processing of multiple subjects and sessions, ensuring consistent statistical modelling across the dataset and providing a basis for subsequent group-level analysis.
 
